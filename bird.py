@@ -1,6 +1,9 @@
 # build the class Bird
+import pygame
+
 from init import BIRD_IMGS
-from parasetting import bird_max_upward_angle, bird_max_downward_angle
+from parasetting import bird_max_upward_angle, bird_max_downward_angle, bird_max_displacement, \
+    bird_angular_acceleration, bird_acceleration, bird_min_incremental_angle, bird_jump_velocity
 
 
 class Bird:
@@ -25,8 +28,7 @@ class Bird:
 
         # for a body with a nonzero speed v and a constant acceleration a
         # the displacement d of this body after time t is d = vt + 1/2at^2
-        displacement = self.velocity * self.time + (
-                1 / 2) * bird_acceleration * self.time ** 2  # calculate the displacement when going downward
+        displacement = self.velocity * self.time + 0.5 * bird_acceleration * self.time ** 2  # calculate the displacement when going downward
 
         # we don't want the bird going donw too fast
         # so we need to set a displacement limit per frame
