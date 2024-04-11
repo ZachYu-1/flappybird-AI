@@ -5,7 +5,6 @@ from neat_para import max_gen
 
 
 def run_NEAT(config_file):
-    # use NEAT algorithm to build a neural network based on the pre-set configurtion
     # Create a neat.config.Config object from the configuration file
     config = neat.config.Config(neat.DefaultGenome,
                                 neat.DefaultReproduction,
@@ -21,10 +20,10 @@ def run_NEAT(config_file):
     stats = neat.StatisticsReporter()
     neat_pop.add_reporter(stats)
 
-    # Call the run method on the Population object, giving it your fitness function and (optionally) the maximum number of generations you want NEAT to run
+    # Call the run method on the Population object
     neat_pop.run(main, max_gen)
 
-    # get the most fit genome genome as our winner with the statistics.best_genome() function
+    # get the most fit genome as winner
     winner = stats.best_genome()
 
     # visualize the results
@@ -37,7 +36,6 @@ def run_NEAT(config_file):
     print('\nBest genome:\n{!s}'.format(winner))
 
 
-# run the game!
 if __name__ == '__main__':
     config_file = 'config-feedforward.txt'
     run_NEAT(config_file)

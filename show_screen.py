@@ -1,11 +1,10 @@
 # define a function to draw the screen to display the game
 import pygame
 
-from bird import Bird
 from init import SCREEN_WIDTH, FONT_COLOR, BG_IMG, FONT
 
 
-def draw_game(screen, birds, pipes, floor, score, generation):
+def draw_game(screen, birds, pipes, floor, score, generation, game_time):
     # draw the background
     screen.blit(BG_IMG, (0, 0))
 
@@ -25,19 +24,16 @@ def draw_game(screen, birds, pipes, floor, score, generation):
         screen.blit(rotated_image, rotated_rect)
 
     # add additional information
-    score_text = FONT.render('Score: ' + str(score), 1, FONT_COLOR)  # set up the text to show the scores
-    screen.blit(score_text, (SCREEN_WIDTH - 15 - score_text.get_width(), 15))  # draw the scores
+    score_text = FONT.render('Score: ' + str(score), 1, FONT_COLOR)  # scores
+    screen.blit(score_text, (SCREEN_WIDTH - 15 - score_text.get_width(), 15))
 
-    generation_text = FONT.render('Generation: ' + str(generation - 1), 1,
-                                  FONT_COLOR)  # set up the text to show the number of generation
-    screen.blit(generation_text, (15, 15))  # draw the generation
+    game_time_text = FONT.render('Time: ' + str(game_time) + ' s', 1, FONT_COLOR)  # time
+    screen.blit(game_time_text, (SCREEN_WIDTH - 15 - game_time_text.get_width(), 15 + score_text.get_height()))
 
-    bird_text = FONT.render('Birds Alive: ' + str(len(birds)), 1,
-                            FONT_COLOR)  # set up the text to show the number of birds alive
-    screen.blit(bird_text, (15, 15 + generation_text.get_height()))  # draw the number of birds alive
+    generation_text = FONT.render('Generation: ' + str(generation - 1), 1, FONT_COLOR)  # number of generation
+    screen.blit(generation_text, (15, 15))
 
-    progress_text = FONT.render('Pipes Remained: ' + str(len(pipes) - score), 1,
-                                FONT_COLOR)  # set up the text to show the progress
-    screen.blit(progress_text, (15, 15 + generation_text.get_height() + bird_text.get_height()))  # draw the progress
+    bird_text = FONT.render('Birds Alive: ' + str(len(birds)), 1, FONT_COLOR)  # number of birds alive
+    screen.blit(bird_text, (15, 15 + generation_text.get_height()))
 
     pygame.display.update()  # show the surface

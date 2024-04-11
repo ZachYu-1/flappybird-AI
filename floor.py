@@ -19,9 +19,9 @@ class Floor:
 
     # define a function to move the floor
     def move(self):
-        self.x1 -= self.VELOCITY  # move to the left with the velocity of VELOCITY
-        self.x2 -= self.VELOCITY  # move to the left with the velocity of VELOCITY
-        self.x3 -= self.VELOCITY  # move to the left with the velocity of VELOCITY
+        self.x1 -= self.VELOCITY
+        self.x2 -= self.VELOCITY
+        self.x3 -= self.VELOCITY
 
         if self.x1 + self.IMG_WIDTH < 0:  # if the first floor image moves out of the screen
             self.x1 = self.x3 + self.IMG_WIDTH  # then move the first floor image to to the right of the third floor image
