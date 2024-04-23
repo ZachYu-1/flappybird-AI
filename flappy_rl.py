@@ -123,9 +123,6 @@ def showWelcomeAnimation():
 
 
 def mainGame(movementInfo):
-
-    # --- REMOVE ANGULAR MOVEMENT AND SOUNDS ---
-
     score = playerIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     playerx, playery = int(SCREENWIDTH * 0.2), movementInfo['playery']
@@ -162,8 +159,6 @@ def mainGame(movementInfo):
     playerFlapAcc = -8  # players speed on flapping
     playerFlapped = False  # True when player flaps
 
-    # When starting the game, if we have state history to resume from then use it until it passes that pipe
-    # If history is less than 20 frames this isn't enough for the bird to learn from (loop of dying) so clear the queue
     if len(STATE_HISTORY) < 20:
         STATE_HISTORY.clear()
     resume_from_history = len(STATE_HISTORY) > 0 if Agent.train else None  # only resume if training
@@ -200,7 +195,6 @@ def mainGame(movementInfo):
                 if playery > -2 * IMAGES['player'][0].get_height():
                     playerVelY = playerFlapAcc
                     playerFlapped = True
-                    # SOUNDS['wing'].play()
 
         # Agent to perform an action (0 is do nothing, 1 is flap)
         if Agent.act(playerx, playery, playerVelY, lowerPipes):
@@ -258,10 +252,6 @@ def mainGame(movementInfo):
                     print_score = True  # need to start a newline before future prints
                     print(f"\r {'Training' if Agent.train else 'Running'} agent, "
                           f"score reached (nearest 10,000): {score:,}", end="")
-                    # sys.stdout.write('\r' + f" {'Training' if Agent.train else 'Running'} "
-                    #                         f"agent, score reached (nearest 10,000): {score}")
-                    # sys.stdout.flush()
-                # SOUNDS['point'].play()
                 if config['max_score'] and score >= config['max_score']:
                     if print_score:
                         print('')
@@ -344,7 +334,6 @@ def mainGame(movementInfo):
 
 
 def showGameOverScreen(crashInfo):
-    """Crashes the player down and shows gameover image"""
     score = crashInfo['score']
     playerx = SCREENWIDTH * 0.2
     playery = crashInfo['y']
@@ -357,11 +346,6 @@ def showGameOverScreen(crashInfo):
     basex = crashInfo['basex']
 
     upperPipes, lowerPipes = crashInfo['upperPipes'], crashInfo['lowerPipes']
-
-    # # play hit and die sounds
-    # SOUNDS['hit'].play()
-    # if not crashInfo['groundCrash']:
-    #     SOUNDS['die'].play()
 
     while True:
         for event in pygame.event.get():
@@ -376,8 +360,6 @@ def showGameOverScreen(crashInfo):
         return
 
 def getRandomPipe():
-    """Returns a randomly generated pipe"""
-    # y of gap between upper and lower pipe
     gapY = random.randrange(0, int(BASEY * 0.6 - PIPEGAPSIZE))
     gapY += int(BASEY * 0.2)
     pipeHeight = IMAGES['pipe'][0].get_height()
@@ -390,7 +372,6 @@ def getRandomPipe():
 
 
 def showScore(score):
-    """Displays score in center of screen"""
     scoreDigits = [int(x) for x in list(str(score))]
     totalWidth = 0  # total width of all numbers to be printed
 
@@ -405,7 +386,6 @@ def showScore(score):
 
 
 def checkCrash(player, upperPipes, lowerPipes):
-    """Returns True if player collders with base or pipes."""
     pi = player['index']
     player['w'] = IMAGES['player'][0].get_width()
     player['h'] = IMAGES['player'][0].get_height()
@@ -441,7 +421,6 @@ def checkCrash(player, upperPipes, lowerPipes):
 
 
 def pixelCollision(rect1, rect2, hitmask1, hitmask2):
-    """Checks if two objects collide and not just their rects"""
     rect = rect1.clip(rect2)
 
     if rect.width == 0 or rect.height == 0:
@@ -458,7 +437,6 @@ def pixelCollision(rect1, rect2, hitmask1, hitmask2):
 
 
 def getHitmask(image):
-    """Returns a hitmask using an image's alpha."""
     mask = []
     for x in xrange(image.get_width()):
         mask.append([])

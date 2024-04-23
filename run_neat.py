@@ -2,37 +2,37 @@ import neat
 
 from main_loop import main
 from neat_para import max_gen
+from visualize import *
 
 
 def run_NEAT(config_file):
-    # Create a neat.config.Config object from the configuration file
+    # Create an object from configuration file
     config = neat.config.Config(neat.DefaultGenome,
                                 neat.DefaultReproduction,
                                 neat.DefaultSpeciesSet,
-                                neat.DefaultStagnation,
+                                neat.DefaultStagnation,   
                                 config_file)
 
-    # Create a neat.population.Population object using the Config object created above
+    # Create a population
     neat_pop = neat.population.Population(config)
 
-    # show the summary statistics of the learning progress
+    # Add a reporter
     neat_pop.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     neat_pop.add_reporter(stats)
 
-    # Call the run method on the Population object
+    # Run the game
     neat_pop.run(main, max_gen)
 
-    # get the most fit genome as winner
+    # get the beat fit genome
     winner = stats.best_genome()
 
-    # visualize the results
-    # node_names = {-1: 'delta_x', -2: 'delta_y_top', -3: 'delta_y_bottom', 0: 'Jump or Not'}
-    # draw_net(config, winner, True, node_names=node_names)
-    # plot_stats(stats, ylog=False, view=True)
-    # plot_species(stats, view=True)
+    # visualize results
+    node_names = {-1: 'delta_x', -2: 'delta_y_top', -3: 'delta_y_bottom', 0: 'Jump or Not'}
+    draw_net(config, winner, True, node_names=node_names)
+    plot_stats(stats, ylog=False, view=True)
+    plot_species(stats, view=True)
 
-    # show the final statistics
     print('\nBest genome:\n{!s}'.format(winner))
 
 

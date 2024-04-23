@@ -13,7 +13,7 @@ from show_screen import draw_game
 
 
 def main(genomes, config):
-    global generation  # use the global variable gen and SCREEN
+    global generation
     screen = SCREEN
     generation += 1  # update the generation
 

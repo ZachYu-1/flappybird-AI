@@ -9,7 +9,7 @@ SCREEN_HEIGHT = 512
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # set up the font
-FONT = pygame.font.SysFont('comicsansms', 15)
+FONT = pygame.font.Font('PixeloidSansBold-PKnYd.ttf', 13)
 FONT_COLOR = (255, 255, 255)
 
 # load images

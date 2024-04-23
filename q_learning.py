@@ -1,12 +1,7 @@
 import json
-import random
 
 
 class QLearning:
-    """
-    Load the Q-learning table and training state (data/training_values.json)and save to file.
-    """
-
     def __init__(self, train):
         # Initialize the agent (train or run)
 
@@ -62,14 +57,6 @@ class QLearning:
                 pass
 
     def act(self, x, y, vel, pipe):
-        """
-        x: bird x
-        y: bird y
-        vel: bird velocity
-        pipe: pipe
-        return action to take
-        """
-
         state = self.get_state(x, y, vel, pipe)
         if self.train:
             self.moves.append((self.previous_state, self.previous_action, state))
@@ -160,11 +147,6 @@ class QLearning:
         return state
 
     def reduce_moves(self, reduce_len=1000000):
-        """
-        Reduce length of moves if greater than reduce_len.
-        reduce_len: default 1 million
-        """
-
         if len(self.moves) > reduce_len:
             history = list(reversed(self.moves[:reduce_len]))
 
