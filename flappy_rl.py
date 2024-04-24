@@ -24,15 +24,12 @@ else:
 FPS = 30
 SCREENWIDTH = 288
 SCREENHEIGHT = 512
-# amount by which base can maximum shift to left
-PIPEGAPSIZE = 100  # gap between upper and lower part of pipe
+PIPEGAPSIZE = 100
 BASEY = SCREENHEIGHT * 0.79
-# image, sound and hitmask  dicts
 IMAGES, SOUNDS, HITMASKS = {}, {}, {}
-STATE_HISTORY = deque(maxlen=70)  # 70 is distance between pipes
+STATE_HISTORY = deque(maxlen=70)
 REPLAY_BUFFER = []
 
-# list of all possible players (tuple of 3 positions of flap)
 PLAYERS_LIST = (
     'images/Flappy Bird Wings Up.png',
     'images/Flappy Bird.png',
@@ -77,30 +74,24 @@ def main():
     IMAGES['base'] = pygame.image.load('images/base.png').convert_alpha()
 
     while True:
-        # select random background sprites
         IMAGES['background'] = pygame.image.load(BACKGROUND_IMG).convert()
 
-        # select random player sprites
         IMAGES['player'] = (
             pygame.image.load(PLAYERS_LIST[0]).convert_alpha(),
             pygame.image.load(PLAYERS_LIST[1]).convert_alpha(),
             pygame.image.load(PLAYERS_LIST[2]).convert_alpha(),
         )
 
-        # select random pipe sprites
-        # pipeindex = random.randint(0, len(PIPES_LIST) - 1)
         IMAGES['pipe'] = (
             pygame.transform.rotate(pygame.image.load(PIPE_IMG).convert_alpha(), 180),
             pygame.image.load(PIPE_IMG).convert_alpha(),
         )
 
-        # hismask for pipes
         HITMASKS['pipe'] = (
             getHitmask(IMAGES['pipe'][0]),
             getHitmask(IMAGES['pipe'][1]),
         )
 
-        # hitmask for player
         HITMASKS['player'] = (
             getHitmask(IMAGES['player'][0]),
             getHitmask(IMAGES['player'][1]),
@@ -338,14 +329,6 @@ def showGameOverScreen(crashInfo):
     playerx = SCREENWIDTH * 0.2
     playery = crashInfo['y']
     playerHeight = IMAGES['player'][0].get_height()
-    playerVelY = crashInfo['playerVelY']
-    playerAccY = 2
-    playerRot = crashInfo['playerRot']
-    playerVelRot = 7
-
-    basex = crashInfo['basex']
-
-    upperPipes, lowerPipes = crashInfo['upperPipes'], crashInfo['lowerPipes']
 
     while True:
         for event in pygame.event.get():

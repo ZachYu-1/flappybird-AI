@@ -28,10 +28,10 @@ def run_NEAT(config_file):
     winner = stats.best_genome()
 
     # visualize results
-    node_names = {-1: 'delta_x', -2: 'delta_y_top', -3: 'delta_y_bottom', 0: 'Jump or Not'}
-    draw_net(config, winner, True, node_names=node_names)
-    plot_stats(stats, ylog=False, view=True)
-    plot_species(stats, view=True)
+    # node_names = {-1: 'delta_x', -2: 'delta_y_top', -3: 'delta_y_bottom', 0: 'Jump or Not'}
+    # draw_net(config, winner, True, node_names=node_names)
+    # plot_stats(stats, ylog=False, view=True)
+    # plot_species(stats, view=True)
 
     print('\nBest genome:\n{!s}'.format(winner))
 

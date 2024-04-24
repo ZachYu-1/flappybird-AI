@@ -2,7 +2,7 @@
 import random
 
 from init import TOP_PIPE_IMG, BOTTOM_PIPE_IMG
-from parasetting import pipe_vertical_gap, pipe_velocity, top_pipe_min_height, top_pipe_max_height
+from neat_para import *
 
 
 class Pipe:
