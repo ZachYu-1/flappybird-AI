@@ -1,6 +1,6 @@
 import neat
 
-from main_loop import main
+from neat_loop import neat_loop
 from neat_para import max_gen
 from visualize import *
 
@@ -22,7 +22,7 @@ def run_NEAT(config_file):
     neat_pop.add_reporter(stats)
 
     # Run the game
-    neat_pop.run(main, max_gen)
+    neat_pop.run(neat_loop, max_gen)
 
     # get the beat fit genome
     winner = stats.best_genome()
